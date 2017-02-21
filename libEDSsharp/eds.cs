@@ -860,7 +860,7 @@ namespace libEDSsharp
                     {
                         if (defaultvalue == null)
                             return 0;
-                        return defaultvalue.Length;
+                        return defaultvalue.Unescape().Length;                      
                     }
 
                 case DataType.OCTET_STRING:
@@ -1248,6 +1248,9 @@ namespace libEDSsharp
             foreach (KeyValuePair<UInt16, ODentry> kvp in ods)
             {
                 ODentry entry = kvp.Value;
+
+				if (entry.Disabled == true)
+					continue;
 
                 if (entry.index == 0x1000 || entry.index == 0x1001 || entry.index == 0x1018)
                 {
